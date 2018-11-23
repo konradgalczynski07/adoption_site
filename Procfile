@@ -1,0 +1,1 @@
+web: gunicorn django_adopt_me.wsgi
