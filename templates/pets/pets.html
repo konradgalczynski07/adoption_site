@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+
+{% block title %} | Search Pets {% endblock %}
+
+{% block content %}
+    <section id="showcase-inner" class="py-5 text-white">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <h1 class="display-4">Search For Pets</h1>
+                    <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, pariatur!</p>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <form action="{% url 'pets' %}">
+                    <!-- Form Row 1 -->
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label class="sr-only">Keywords</label>
+                            <input type="text" name="keywords" class="form-control" placeholder="Keyword (Race, Color, etc)" value="{{ values.keywords }}">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="sr-only">City</label>
+                            <input type="text" name="city" class="form-control" placeholder="City" value="{{ values.city }}">
+                        </div>
+                    </div>
+                    <!-- Form Row 2 -->
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label class="sr-only">Gender</label>
+                            <select name="gender" class="form-control">
+                                <option selected="true" disabled="disabled">Gender</option>
+                                    {% for key, value in gender_choices.items %}
+                                        <option value="{{ key }}" 
+                                        {% if key == values.gender %}
+                                            selected
+                                        {% endif %}
+                                        >{{ value }}</option>
+                                    {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="sr-only">Age</label>
+                            <select name="age" class="form-control">
+                                <option selected="true" disabled="disabled">Age</option>
+                                    {% for key, value in age_choices.items %}
+                                        <option value="{{ key }}" 
+                                        {% if key == values.age %}
+                                            selected
+                                        {% endif %}
+                                        >{{ value }}</option>
+                                    {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="sr-only">Size</label>
+                            <select name="size" class="form-control">
+                                <option selected="true" disabled="disabled">Size</option>
+                                    {% for key, value in size_choices.items %}
+                                        <option value="{{ key }}" 
+                                        {% if key == values.size %}
+                                            selected
+                                        {% endif %}
+                                        >{{ value }}</option>
+                                    {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary btn-block mt-4" type="submit">Submit form</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <section id="bc" class="mt-3">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'index' %}">
+                            <i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li class="breadcrumb-item active"> Pets</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Listings -->
+    <section id="listings" class="py-4">
+        <div class="container">
+            <div class="row">
+                {% if pets %}
+                    {% for pet in pets %}
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card listing-preview">
+                            <img class="card-img-top" src="{{ pet.photo_main.url }}" alt="">
+                            <div class="card-body">
+                                <div class="listing-heading text-center">
+                                    <h4 class="text-primary">{{ pet.name }}</h4>
+                                    <p><i class="fas fa-map-marker text-secondary"></i> {{ pet.city }}</p>
+                                </div>
+                                <hr>
+                                <div class="row py-2 text-secondary">
+                                    <div class="col-6">
+                                        <i class="fas fa-circle"></i> {{ pet.race }}</div>
+                                    <div class="col-6">
+                                        <i class="fas fa-circle"></i> Gender: {{ pet.gender }}</div>
+                                </div>
+                                <div class="row py-2 text-secondary">
+                                    <div class="col-6">
+                                        <i class="fas fa-circle"></i> Age: {{ pet.age }}</div>
+                                    <div class="col-6">
+                                        <i class="fas fa-circle"></i> Size: {{ pet.size }}</div>
+                                </div>
+                                <hr>
+                                <div class="row py-2 text-secondary">
+                                    <div class="col-12">
+                                        <i class="fas fa-user"></i> {{ pet.volunteer }}</div>
+                                </div>
+                                <div class="row text-secondary pb-2">
+                                    <div class="col-12">
+                                        <i class="fas fa-clock"></i> {{ pet.list_date | timesince }}</div>
+                                </div>
+                                <hr>
+                                <a href="{% url 'pet' pet.id %}" class="btn btn-primary btn-block">More Info</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                <div class="col-md-12">
+                    <p>No listings available</p>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    {% if pets.has_other_pages %}
+                    <ul class="pagination">
+                        {% if pets.has_previous %}
+                        <li class="page-item">
+                            <a href="?page={{pets.previous_page_number}}" class="page-link">&laquo;</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link">&laquo;</a>
+                        </li>
+                        {% endif %}
+                        {% for i in pets.paginator.page_range %}
+                        {% if pets.number == i %}
+                        <li class="page-item active">
+                            <a class="page-link">{{i}}</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item">
+                            <a href="?page={{i}}" class="page-link">{{i}}</a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if pets.has_next %}
+                        <li class="page-item">
+                            <a href="?page={{pets.next_page_number}}" class="page-link">&raquo;</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link">&raquo;</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

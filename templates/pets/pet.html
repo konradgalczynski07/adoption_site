@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+
+{% block title %} | {{ pet.name }} {% endblock %}
+
+{% block content %}
+<section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <h1 class="display-4">{{ pet.name }}</h1>
+                <p class="lead">
+                    <i class="fas fa-map-marker"></i> {{ pet.city }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Breadcrumb -->
+<section id="bc" class="mt-3">
+    <div class="container">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'index' %}">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{% url 'pets' %}">Pets</a>
+                </li>
+                <li class="breadcrumb-item active">{{ pet.name }}</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Listing -->
+<section id="listing" class="py-4">
+    <div class="container">
+        <a href="{% url 'pets' %}" class="btn btn-light mb-4">Back To Searching</a>
+        <div class="row">
+            <div class="col-md-9">
+                <!-- Home Main Image -->
+                <img src="{{ pet.photo_main.url }}" alt="" class="img-main img-fluid mb-3">
+                <!-- Thumbnails -->
+                <div class="row mb-5 thumbs">
+                    {% if pet.photo_1 %}
+                    <div class="col-md-2">
+                        <a href="{{ pet.photo_1.url }}" data-lightbox="home-images">
+                            <img src="{{ pet.photo_1.url }}" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% if pet.photo_2 %}
+                    <div class="col-md-2">
+                        <a href="{{ pet.photo_2.url }}" data-lightbox="home-images">
+                            <img src="{{ pet.photo_2.url }}" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% if pet.photo_3 %}
+                    <div class="col-md-2">
+                        <a href="{{ pet.photo_3.url }}" data-lightbox="home-images">
+                            <img src="{{ pet.photo_3.url }}" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% if pet.photo_4 %}
+                    <div class="col-md-2">
+                        <a href="{{ pet.photo_4.url }}" data-lightbox="home-images">
+                            <img src="{{ pet.photo_4.url }}" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% if pet.photo_5 %}
+                    <div class="col-md-2">
+                        <a href="{{ pet.photo_5.url }}" data-lightbox="home-images">
+                            <img src="{{ pet.photo_5.url }}" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% if pet.photo_6 %}
+                    <div class="col-md-2">
+                        <a href="{{ pet.photo_6.url }}" data-lightbox="home-images">
+                            <img src="{{ pet.photo_6.url }}" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+                <!-- Fields -->
+                <div class="row mb-5 fields">
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item text-secondary">
+                                <i class="fas fa-circle"></i> Race:
+                                <span class="float-right">{{ pet.race }}</span>
+                            </li>
+                            <li class="list-group-item text-secondary">
+                                <i class="fas fa-circle"></i> Gender:
+                                <span class="float-right">{{ pet.gender }}</span>
+                            </li>
+                            <li class="list-group-item text-secondary">
+                                <i class="fas fa-bed"></i> Career:
+                                <span class="float-right">{{ pet.volunteer }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item text-secondary">
+                                <i class="fas fa-circle"></i> Age:
+                                <span class="float-right">{{ pet.age }}</span>
+                            </li>
+                            <li class="list-group-item text-secondary">
+                                <i class="fas fa-circle"></i> Size:
+                                <span class="float-right">{{ pet.size }} Acres</span>
+                            </li>
+                            <li class="list-group-item text-secondary">
+                                <i class="fas fa-calendar"></i> Added Date:
+                                <span class="float-right">{{ pet.list_date }}</span>
+                            </li>
+                            
+
+
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="row mb-5">
+                    <div class="col-md-12">
+                        {{ pet.description }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card mb-3">
+                    <img class="card-img-top" src="{{ pet.volunteer.photo.url }}" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">Attendant</h5>
+                        <h6 class="text-secondary">{{ pet.volunteer }}</h6>
+                    </div>
+                </div>
+                <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Make An
+                    Inquiry</button>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
