@@ -5,13 +5,7 @@ from .choices import gender_choices, age_choices, size_choices
 from .models import Pet
 
 def index(request):
-    pets = Pet.objects.order_by('-list_date').filter(is_published=True)
-    queryset_list = Pet.objects.order_by('-list_date')
-
-    paginator = Paginator(pets, 6)
-    page = request.GET.get('page')
-    paged_pets = paginator.get_page(page)
-
+    queryset_list = Pet.objects.order_by('-list_date').filter(is_published=True)
 
     # Keywords
     if 'keywords' in request.GET:
@@ -43,9 +37,12 @@ def index(request):
         if size:
             queryset_list = queryset_list.filter(size__iexact=size)
 
+    paginator = Paginator(queryset_list, 6)
+    page = request.GET.get('page')
+    paged_pets = paginator.get_page(page)
+
     context = {
         'pets' : paged_pets,
-        'pets': queryset_list,
         'gender_choices': gender_choices,
         'age_choices': age_choices,
         'size_choices': size_choices,
