@@ -20,7 +20,7 @@ def contact(request):
 
         # Send email
         # send_mail(
-        #   'Inquiry of pet',
+        #   'Inquiry of Pet',
         #   'There has been an inquiry for ' + pet + '. Sign into the admin panel for more info',
         #   'mail@gmail.com',
         #   [volunere_email, 'mail@gmail.com'],

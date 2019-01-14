@@ -3,7 +3,7 @@ from datetime import datetime
 
 
 class Contact(models.Model):
-    pet = models.CharField(max_length=200)
+    pet = models.CharField(max_length=255)
     pet_id = models.IntegerField()
     name = models.CharField(max_length=200)
     email = models.CharField(max_length=100)
