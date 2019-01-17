@@ -1,10 +1,11 @@
-from django.test import TestCase, Client
+from django.test import TestCase
 
 from .models import Volunteer
 
 
 def create_sample_volunteer():
     return Volunteer.objects.create(name='Test',
+                                    photo='fake.jpg',
                                     phone='555555555',
                                     email='test@test.com')
 

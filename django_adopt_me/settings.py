@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'django_adopt_me.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'adopt_me2',
+        'NAME': 'adopt_me3',
         'USER': 'postgres',
         'PASSWORD': 'root',
         'HOST': 'localhost',
