@@ -1,17 +1,27 @@
-# Django_adopt_me
+# Web app for posting pets for adoption
 
-## Webpage for posting pets for adoption
-
-This is simple website on which you can find pets available for adoption and make an inquiry about them. There are feature like:
+This is simple website on which you can find pets available for adoption and make an inquiry about them. There are features like:
 
 -   custom admin panel for managing pets and volunteers
 -   pet detail page
 -   searching form
 -   contact inquire form with email notification for admin
 
+## Technology Stack:
+
+-   Python/Django
+-   PostgreSQL
+-   HTML/CSS/Bootstrap
+
+## Sources
+
+-   Python Django Dev To Deployment [[Udemy course - 11 hrs]](https://www.udemy.com/python-django-dev-to-deployment/)
+-   Test-Driven Web Development with Python by Harry J.W. Percival [[The Book]](http://www.obeythetestinggoat.com)
+-   Coders Lab Course Resources
+
 This website can be seen [here](https://adopt--me.herokuapp.com)
 
-Please note that images are not showed properly on Heroku Free Plan and website sleeps after 30 mins of inactivity (which also means loading can take a while)
+Please note that images are not displayed properly on Heroku Free Plan and website sleeps after 30 mins of inactivity (which also means loading can take a while)
 
 Screenshots below
 

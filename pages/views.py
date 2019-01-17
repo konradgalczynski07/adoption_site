@@ -3,6 +3,7 @@ from django.shortcuts import render
 from volunteers.models import Volunteer
 from pets.models import Pet
 
+
 def index(request):
     pets = Pet.objects.order_by('-list_date').filter(is_published=True)[:4]
 

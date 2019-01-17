@@ -1,10 +1,11 @@
 from django.db import models
 from datetime import datetime
 
+from pets.models import Pet
+
 
 class Contact(models.Model):
-    pet = models.CharField(max_length=255)
-    pet_id = models.IntegerField()
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     email = models.CharField(max_length=100)
     phone = models.CharField(max_length=100)

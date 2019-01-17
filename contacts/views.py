@@ -1,19 +1,20 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Contact
+from pets.models import Pet
 # from django.core.mail import send_mail
 
 
 def contact(request):
     if request.method == 'POST':
-        pet_id = request.POST['pet_id']
         pet = request.POST['pet']
+        pet_instance = Pet.objects.get(pk=pet)
         name = request.POST['name']
         email = request.POST['email']
         phone = request.POST['phone']
         message = request.POST['message']
 
-        contact = Contact(pet=pet, pet_id=pet_id, name=name,
+        contact = Contact(pet=pet_instance, name=name,
                           email=email, phone=phone, message=message)
 
         contact.save()
@@ -27,4 +28,4 @@ def contact(request):
         #   fail_silently=False
         # )
 
-        return redirect('/pets/'+pet_id)
+        return redirect('/pets/'+pet)

@@ -4,16 +4,19 @@ from .choices import gender_choices, age_choices, size_choices
 
 from .models import Pet
 
+
 def index(request):
-    queryset_list = Pet.objects.order_by('-list_date').filter(is_published=True)
+    queryset_list = Pet.objects.order_by(
+        '-list_date').filter(is_published=True)
 
     # Keywords
     if 'keywords' in request.GET:
         keywords = request.GET['keywords']
         if keywords:
-            queryset_list = queryset_list.filter(description__icontains=keywords)
+            queryset_list = queryset_list.filter(
+                description__icontains=keywords)
 
-    # City 
+    # City
     if 'city' in request.GET:
         city = request.GET['city']
         if city:
@@ -31,7 +34,7 @@ def index(request):
         if age:
             queryset_list = queryset_list.filter(age__lte=age)
 
-    # Size 
+    # Size
     if 'size' in request.GET:
         size = request.GET['size']
         if size:
@@ -42,13 +45,12 @@ def index(request):
     paged_pets = paginator.get_page(page)
 
     context = {
-        'pets' : paged_pets,
+        'pets': paged_pets,
         'gender_choices': gender_choices,
         'age_choices': age_choices,
         'size_choices': size_choices,
         'values': request.GET
     }
-
 
     return render(request, 'pets/pets.html', context)
 
@@ -59,6 +61,5 @@ def pet(request, pet_id):
     context = {
         'pet': pet
     }
-
 
     return render(request, 'pets/pet.html', context)
